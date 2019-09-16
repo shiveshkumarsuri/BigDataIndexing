@@ -1,2 +1,10 @@
 # Default ignored files
 /workspace.xml
+target/
+.idea
+.classpath
+.settings
+.factorypath
+*.iml
+*.exec
+.project
