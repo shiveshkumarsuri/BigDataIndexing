@@ -1,10 +1,14 @@
 # Default ignored files
 /workspace.xml
-target/
-.idea
+/target/
 .classpath
 .settings
 .factorypath
-*.iml
 *.exec
 .project
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
