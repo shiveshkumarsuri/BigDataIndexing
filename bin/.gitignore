@@ -1,7 +1,6 @@
-# Default ignored files
+# Compiled class file
 *.class
-.DS_Store
-.idea
+
 # Log file
 *.log
 
@@ -27,5 +26,3 @@ hs_err_pid*
 
 *.settings
 *.project
-*.springBeans
-
