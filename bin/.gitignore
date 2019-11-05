@@ -1,8 +1,6 @@
-# Default ignored files
-<<<<<<< HEAD
+# Compiled class file
 *.class
-.DS_Store
-.idea
+
 # Log file
 *.log
 
@@ -28,16 +26,3 @@ hs_err_pid*
 
 *.settings
 *.project
-*.springBeans
-
-=======
-/workspace.xml
-target/
-.idea
-.classpath
-.settings
-.factorypath
-*.iml
-*.exec
-.project
->>>>>>> 73488b871a954c6cabcb0c26fe6142df8a094b6b
