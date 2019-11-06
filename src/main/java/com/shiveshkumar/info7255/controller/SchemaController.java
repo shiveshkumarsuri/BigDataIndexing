@@ -12,17 +12,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shiveshkumar.info7255.beans.JSONValidator;
-import com.shiveshkumar.info7255.beans.JedisBean;
+import com.shiveshkumar.info7255.persistence.RedisHelper;
+import com.shiveshkumar.info7255.util.ApplicationUtil;
+import com.shiveshkumar.info7255.util.JsonValidatorUtil;
 
 @RestController
 public class SchemaController {
 	
 	@Autowired
-	private JSONValidator validator;
+	private JsonValidatorUtil validator;
 	
 	@Autowired
-	private JedisBean jedisBean;
+	private RedisHelper redisHelper;
 	
 	Map<String, String> m = new HashMap<String, String>();
 	
@@ -31,7 +32,7 @@ public class SchemaController {
 		
 		m.clear();
 		
-		if (!new HomeController().authorize(requestHeaders)) {
+		if (!ApplicationUtil.authorize(requestHeaders)) {
 			m.put("message", "Authorization failed");
 			return new ResponseEntity<Map<String, String>>(m, HttpStatus.UNAUTHORIZED);
 		}
@@ -40,10 +41,8 @@ public class SchemaController {
 			m.put("message","Schema not recieved");
 			return new ResponseEntity<>(m, new HttpHeaders(), HttpStatus.BAD_REQUEST);
 		}
-		// receive token and validate
 		
-		// set json schema in redis
-		if(!jedisBean.insertSchema(body)) {
+		if(!redisHelper.insertSchema(body)) {
 			m.put("message","Schema insertion failed");
 			return new ResponseEntity<>(m, new HttpHeaders(), HttpStatus.BAD_REQUEST);
 		}

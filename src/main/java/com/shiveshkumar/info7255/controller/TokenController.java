@@ -22,41 +22,40 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class TokenController {
-    private static String finalKey = "0123456789abcdef";
+    private static String FINAL_KEY = "qwerty0123456789";
 
     @GetMapping(value="/token")
-    public ResponseEntity getToken(@RequestHeader HttpHeaders headers) throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, JSONException {
+    public ResponseEntity<Map<String, Object>> getToken(@RequestHeader HttpHeaders headers) throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, JSONException {
 
-        String initVector = "RandomInitVector";
-        //create token(Sample token)
+        String initVector = "r#nd#minitv#ct#r";
         JSONObject object = new JSONObject();
         object.put("organization", "example.com");
-        object.put("user", "user");
+        object.put("user", "shiveshkumar");
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 60);
         Date date =  calendar.getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         object.put("ttl", df.format(date));
 
-
-        //Partial token created
         String token = object.toString();
         System.out.println("Token values is " + token);
         System.out.println("TTL is : " + object.get("ttl"));
 
 
         IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
-        SecretKeySpec skeySpec = new SecretKeySpec(finalKey.getBytes("UTF-8"), "AES");
+        SecretKeySpec skeySpec = new SecretKeySpec(FINAL_KEY.getBytes("UTF-8"), "AES");
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-        //encrypting token
+       
         byte[] encrypted = cipher.doFinal(token.getBytes());
 
-        // encoded token (Base64 encoding)
-        String finalToken = org.apache.tomcat.util.codec.binary.Base64.encodeBase64String(encrypted);
-        return new ResponseEntity(finalToken, HttpStatus.CREATED);
+        Map<String, Object> finalToken = new HashMap<String, Object>();
+        finalToken.put("Token",org.apache.tomcat.util.codec.binary.Base64.encodeBase64String(encrypted));
+        return new ResponseEntity<Map<String, Object>>(finalToken, HttpStatus.CREATED);
     }
 }

@@ -1,5 +1,4 @@
 # Default ignored files
-<<<<<<< HEAD
 *.class
 .DS_Store
 .idea
@@ -30,7 +29,6 @@ hs_err_pid*
 *.project
 *.springBeans
 
-=======
 /workspace.xml
 target/
 .idea
@@ -40,4 +38,4 @@ target/
 *.iml
 *.exec
 .project
->>>>>>> 73488b871a954c6cabcb0c26fe6142df8a094b6b
+
