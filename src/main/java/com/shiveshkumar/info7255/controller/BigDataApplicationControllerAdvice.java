@@ -23,7 +23,7 @@ import com.shiveshkumar.info7255.exception.JsonValidationException;
 
 @ControllerAdvice
 @RequestMapping(produces = MediaType.APPLICATION_JSON)
-public class HomeControllerAdvice extends ResponseEntityExceptionHandler {
+public class BigDataApplicationControllerAdvice extends ResponseEntityExceptionHandler {
 
 	Map<String, String> m = new HashMap<String, String>();
 
